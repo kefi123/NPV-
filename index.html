@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>npv</title>
+</head>
+<body>
+
+    请输入初始投资：<input type="text" name="chu_shi_tou_zi" id="chu_shi_tou_zi"><br>
+    请输入贴现率：<input type="text" name="tie_xian_lv" id="tie_xian_lv"><br>
+    请输入总的年份：<input type="text" name="year_number" id="year_number" onchange="myFunction()"><br>
+    <div id="money">
+
+    </div>
+    <br>
+    <button onclick="myFunction2()">计算npv</button>
+    <div>
+        <h1 id="result"></h1>
+    </div>
+<script>
+
+    function myFunction(){
+        var x=document.getElementById("year_number").value;
+        var div=document.getElementById("money");
+        div.innerHTML="请输入每年的资金流动数额：<br>";
+        for(var i=1;i<=x;i++){
+            var name="text"+i;
+            var ipt=document.createElement("input");
+            ipt.setAttribute("type","text");
+            ipt.setAttribute("id",name);
+            div.appendChild(ipt);
+            var ipt1=document.createElement("br");
+            div.appendChild(ipt1);
+        }
+    }
+    function myFunction2(){
+        var chu_shi_tou_zi=document.getElementById("chu_shi_tou_zi").value;
+        var tie_xian_lv=document.getElementById("tie_xian_lv").value;
+        var year_number=document.getElementById("year_number").value;
+
+        var npv=0;
+        for(var i=1;i<=year_number;i++){
+            var name="text"+i;
+            var money=document.getElementById(name).value;
+            var temp=Math.pow(parseFloat(tie_xian_lv)+1,i);
+            npv+=money/temp;
+        }
+        npv-=chu_shi_tou_zi;
+        var lll=document.getElementById("result");
+        lll.innerHTML="该项目的npv为："+npv;
+    }
+</script>
+
+</body>
+</html>
